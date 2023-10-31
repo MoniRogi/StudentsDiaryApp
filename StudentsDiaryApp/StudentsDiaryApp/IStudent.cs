@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace StudentsDiaryApp
+
 {
-    internal class IStudent
+    public interface IStudent
     {
+        string Name { get; }
+        string Surname { get; }
+        string Sex { get; }
+
+        void AddGrade(float grade);
+        void AddGrade(double grade);
+        void AddGrade(int grade);
+        void AddGrade(string grade);
+
+        event StudentBase.GradeAddedDelegate GradeAdded;
+
+        Statistics GetStatistics();
     }
+
 }
