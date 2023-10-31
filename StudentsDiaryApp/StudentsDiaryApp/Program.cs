@@ -125,7 +125,9 @@ static void EnterGrade(IStudent student)
     }
 }
 
-var ststistics = student.GetStatistics();
+
+Statistics ststistics = student.GetStatistics();
+
 Console.WriteLine($"Average: {ststistics.Average}");
 Console.WriteLine($"Min: {ststistics.Min}");
 Console.WriteLine($"Max: {ststistics.Max}");

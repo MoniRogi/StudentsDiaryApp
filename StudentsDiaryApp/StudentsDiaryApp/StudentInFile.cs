@@ -5,12 +5,14 @@ namespace StudentsDiaryApp
     {
         private const string fileName = "grades.txt";
 
+        private string fullFileName;
+
         public override event GradeAddedDelegate GradeAdded;
 
         public StudentInFile(string name, string surname, string sex)
             : base(name, surname, sex)
         {
-            fileName = $"{name}_{surname}_{sex}";
+            fullFileName = $"{name}_{surname}_{sex}";
         }
         public override void AddGrade(float grade)
         {
@@ -48,71 +50,71 @@ namespace StudentsDiaryApp
         }
         public override void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float result))
+            if (float.TryParse(grade, out _))
             {
                 using var writer = File.AppendText(fileName);
                 writer.WriteLine(grade);
-
+                AddGrade(float.Parse(grade.ToString()));
 
                 switch (grade)
                 {
                     case "6":
-                        this.grades.Add(6);
+                        this.AddGrade(6);
                         break;
                     case "6+":
                     case "-6":
-                        this.grades.Add((float)5.75);
+                        this.AddGrade((float)5.75);
                         break;
                     case "5+":
                     case "+5":
-                        this.grades.Add((float)5.5);
+                        this.AddGrade((float)5.5);
                         break;
                     case "5":
-                        this.grades.Add(5);
+                        this.AddGrade(5);
                         break;
                     case "5-":
                     case "-5":
-                        this.grades.Add((float)4.75);
+                        this.AddGrade((float)4.75);
                         break;
                     case "4+":
                     case "+4":
-                        this.grades.Add((float)4.5);
+                        this.AddGrade((float)4.5);
                         break;
                     case "4":
-                        this.grades.Add(4);
+                        this.AddGrade(4);
                         break;
                     case "4-":
                     case "-4":
-                        this.grades.Add((float)3.75);
+                        this.AddGrade((float)3.75);
                         break;
                     case "3+":
                     case "+3":
-                        this.grades.Add((float)3.5);
+                        this.AddGrade((float)3.5);
                         break;
                     case "3":
-                        this.grades.Add(3);
+                        this.AddGrade(3);
                         break;
                     case "-3":
                     case "3-":
-                        this.grades.Add((float)2.75);
+                        this.AddGrade((float)2.75);
                         break;
                     case "2+":
                     case "+2":
-                        this.grades.Add((float)2.5);
+                        this.AddGrade((float)2.5);
                         break;
                     case "2":
-                        this.grades.Add(2);
+                        this.AddGrade(2);
                         break;
                     case "2-":
                     case "-2":
-                        this.grades.Add((float)1.75);
+                        this.AddGrade((float)1.75);
                         break;
                     case "1+":
                     case "+1":
-                        this.grades.Add((float)1.5);
+                        this.AddGrade((float)1.5);
                         break;
                     case "1":
-                        this.grades.Add(1);
+                        this.AddGrade(1);
                         break;
                     default:
                         throw new Exception("Zła ocena (wpisz 1-6)");
@@ -150,8 +152,9 @@ namespace StudentsDiaryApp
             return grades;
         }
 
-        private Statistics GetStatistics(List<float> gradesFromFile)
+        private Statistics GetStatistics(List<float> grades)
         {
+
             var statistics = new Statistics();
 
             foreach (var grade in this.grades)

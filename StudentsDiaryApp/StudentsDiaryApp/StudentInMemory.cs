@@ -5,7 +5,7 @@ namespace StudentsDiaryApp
     {
         public override event GradeAddedDelegate GradeAdded;
 
-        private List<float> grades = new List<float>();
+        private List<float> grades = new();
         public StudentInMemory(string name, string surname, string sex)
             : base(name, surname, sex)
         {
@@ -14,7 +14,7 @@ namespace StudentsDiaryApp
         {
             if (grade >= 0 && grade <= 6)
             {
-                this.grades.Add(grade);
+                grades.Add(grade);
                 if (GradeAdded != null)
                 {
                     GradeAdded(this, new EventArgs());
@@ -38,7 +38,8 @@ namespace StudentsDiaryApp
         public override void AddGrade(string grade)
         {
             if (float.TryParse(grade, out float result))
-            {
+            {                             
+                AddGrade(float.Parse(grade.ToString()));
                 this.AddGrade(result);
 
                 switch (grade)
